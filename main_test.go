@@ -26,6 +26,9 @@ type untaggedChild struct {
 	UntaggedItem string
 }
 
+type emptyStruct struct {
+}
+
 func TestStandardObject(t *testing.T) {
 	object := []simpleObject{}
 
@@ -66,6 +69,17 @@ func TestUntaggedChildren(t *testing.T) {
 	fmt.Println("Untagged Children: " + output)
 
 	if output != `{"tagged":1}` {
+		t.Fatal("Invalid mapping retured for untagged children object!")
+	}
+}
+
+func TestEmptyObject(t *testing.T) {
+	object := emptyStruct{}
+
+	output := GetJSONObjectFieldMap(object)
+	fmt.Println("Untagged Children: " + output)
+
+	if output != `{}` {
 		t.Fatal("Invalid mapping retured for untagged children object!")
 	}
 }
