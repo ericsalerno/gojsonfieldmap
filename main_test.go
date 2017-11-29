@@ -83,3 +83,11 @@ func TestEmptyObject(t *testing.T) {
 		t.Fatal("Invalid mapping retured for untagged children object!")
 	}
 }
+
+func TestNil(t *testing.T) {
+	output := GetJSONObjectFieldMap(nil)
+
+	if output != `{}` {
+		t.Fatal("Invalid nil response.")
+	}
+}

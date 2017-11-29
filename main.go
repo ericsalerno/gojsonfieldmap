@@ -4,6 +4,10 @@ import "reflect"
 
 // GetJSONObjectFieldMap converts an interface{} into a json mapping string
 func GetJSONObjectFieldMap(object interface{}) string {
+	if object == nil {
+		return "{}"
+	}
+
 	o := "{"
 
 	pointerType := reflect.TypeOf(object)
