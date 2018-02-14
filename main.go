@@ -44,8 +44,10 @@ func GetJSONObjectFieldMap(object interface{}) string {
 				//Embedded classes
 				stringLen := len(enableValue)
 				if stringLen > 3 {
+					//Strip the {}'s off since this is considered part of this class now
 					o += enableValue[1 : len(enableValue)-1]
 				}
+				//Anonymous is handled as the current field so just continue
 				continue
 			}
 		}
