@@ -1,6 +1,8 @@
 package gojsonfieldmap
 
-import "reflect"
+import (
+	"reflect"
+)
 
 // GetJSONObjectFieldMap converts an interface{} into a json mapping string
 func GetJSONObjectFieldMap(object interface{}) string {
@@ -37,6 +39,15 @@ func GetJSONObjectFieldMap(object interface{}) string {
 		if fieldType != "string" && fieldType != "int" {
 			subObject := reflect.New(field.Type).Interface()
 			enableValue = GetJSONObjectFieldMap(subObject)
+
+			if field.Anonymous {
+				//Embedded classes
+				stringLen := len(enableValue)
+				if stringLen > 3 {
+					o += enableValue[1 : len(enableValue)-1]
+				}
+				continue
+			}
 		}
 
 		ftype := field.Tag.Get("json")

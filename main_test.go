@@ -29,6 +29,11 @@ type untaggedChild struct {
 type emptyStruct struct {
 }
 
+type embeddedTest struct {
+	simpleObject
+	EmbeddedWorks string `json:"embedded"`
+}
+
 func TestStandardObject(t *testing.T) {
 	object := []simpleObject{}
 
@@ -89,5 +94,16 @@ func TestNil(t *testing.T) {
 
 	if output != `{}` {
 		t.Fatal("Invalid nil response.")
+	}
+}
+
+func TestEmbedded(t *testing.T) {
+	object := embeddedTest{}
+
+	output := GetJSONObjectFieldMap(object)
+	fmt.Println("Embedded: " + output)
+
+	if output != `{"Name":1,"Value":1,"embedded":1}` {
+		t.Fatal("Invalid mapping retured for simple object!")
 	}
 }
